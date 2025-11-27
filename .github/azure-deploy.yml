@@ -1,0 +1,27 @@
+name: deploy php app to azure App service
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-deploy:
+   runs-on: ubuntu-lastest
+   steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+-name:
+uses: shivmmathur/setup-php@v2
+with:
+  php-version: '8.4'
+
+-name: Run basic PHP lint
+run: php -1 index.php
+
+-name: Deploy to Azure App service
+uses: azure/webapps-deploy@v2
+with:
+ app-name: app-so-adriano
+ publish-proflie: ${{ secret.AZURE_PUBLISH_PROFILE }}
+ package:
